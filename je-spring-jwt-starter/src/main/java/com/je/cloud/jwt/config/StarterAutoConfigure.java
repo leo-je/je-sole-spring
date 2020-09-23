@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 
-@Configuration
 @ConditionalOnClass(JwtService.class)
 @EnableConfigurationProperties(JwtConfig.class)
 public class StarterAutoConfigure {
@@ -44,7 +43,7 @@ public class StarterAutoConfigure {
     /**
      * @ConditionalOnProperty(prefix = "je.jwt", value = "enabled", havingValue = "true",matchIfMissing = true)
      */
-    JwtService starterService() {
+    public JwtService starterService() {
         if (jwtConfig.isEnabled()) {
             log.info("-------------> JwtService init");
             return new JwtServiceImpl();

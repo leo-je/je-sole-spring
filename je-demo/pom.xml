@@ -2,11 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.je.cloud</groupId>
         <artifactId>je-sole-spring</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+
     <groupId>com.je.cloud</groupId>
     <artifactId>je-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -22,25 +24,30 @@
         <dependency>
             <groupId>com.je.cloud</groupId>
             <artifactId>je-spring-base-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${je.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.je.cloud</groupId>
             <artifactId>je-spring-jwt-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${je.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.je.cloud</groupId>
             <artifactId>je-spring-queue-disruptor-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${je.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.je.cloud</groupId>
             <artifactId>je-spring-mybatis-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${je.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
     </dependencies>

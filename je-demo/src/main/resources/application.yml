@@ -10,7 +10,7 @@ spring:
 
 je:
   jwt:
-    #enabled:
+#    enabled:
     secret: abcdefg1234567 # 加密密钥
     expire: 3600 # token有效时长
     header: token # header 名称

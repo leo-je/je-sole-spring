@@ -16,10 +16,28 @@ import java.util.Date;
 @Component
 public class JwtConfig {
 
+    /**
+     * secret
+     */
     private String secret = "jwt";
+
+    /**
+     * 过期时间
+     */
     private long expire = 36000;
+
+    /**
+     * token参数名称
+     */
     private String header = "token";
-    private String ignorepath = "gasdtwesfsdrfweta";
+
+    /**
+     * 白名单路径
+     */
+    private String ignorepath = "/index";
+    /**
+     * 是否启用jwt
+     */
     private boolean enabled = true;
 
     /**
