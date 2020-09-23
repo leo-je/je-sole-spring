@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.je.cloud.jwt.config.StarterAutoConfigure,\
+  com.je.cloud.jwt.config.WebJwtConfig

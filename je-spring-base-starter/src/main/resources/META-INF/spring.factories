@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.je.cloud.base.config.StarterAutoConfigure,\
+  com.je.cloud.base.handle.PermissionHandler
