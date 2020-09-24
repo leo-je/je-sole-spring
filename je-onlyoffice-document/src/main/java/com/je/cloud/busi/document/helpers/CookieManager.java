@@ -10,7 +10,7 @@ public class CookieManager {
     private HashMap<String, String> cookiesMap;
 
     public CookieManager(HttpServletRequest request) throws UnsupportedEncodingException {
-        cookiesMap = new HashMap<String, String>();
+        cookiesMap = new HashMap<>();
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {

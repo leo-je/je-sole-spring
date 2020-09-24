@@ -27,22 +27,32 @@
 package com.je.cloud.busi.document.helpers;
 
 import com.google.gson.Gson;
+import com.je.cloud.busi.document.config.DocumentConfig;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 
+@Component
 public class ServiceConverter {
+
+    @Autowired
+    FileUtility fileUtility;
+
+    @Autowired
+    DocumentConfig documentConfig;
+
     private static int ConvertTimeout = 120000;
-    private static final String DocumentConverterUrl = ConfigManager.GetProperty("files.docservice.url.converter");
-    private static final String DocumentJwtHeader = ConfigManager.GetProperty("files.docservice.header");
+    //private static final String DocumentConverterUrl = documentConfig.getConvertDocs();//ConfigManager.GetProperty("files.docservice.url.converter");
+//    private static final String DocumentJwtHeader = ConfigManager.GetProperty("files.docservice.header");
 
     public static class ConvertBody {
         public String url;
@@ -54,9 +64,9 @@ public class ServiceConverter {
         public String token;
     }
 
-    static {
+    ServiceConverter() {
         try {
-            int timeout = Integer.parseInt(ConfigManager.GetProperty("files.docservice.timeout"));
+            int timeout = Integer.parseInt(documentConfig.getTimeout());
             if (timeout > 0) {
                 ConvertTimeout = timeout;
             }
@@ -64,10 +74,10 @@ public class ServiceConverter {
         }
     }
 
-    public static String GetConvertedUri(String documentUri, String fromExtension, String toExtension, String documentRevisionId, Boolean isAsync) throws Exception {
-        fromExtension = fromExtension == null || fromExtension.isEmpty() ? FileUtility.GetFileExtension(documentUri) : fromExtension;
+    public String GetConvertedUri(String documentUri, String fromExtension, String toExtension, String documentRevisionId, Boolean isAsync) throws Exception {
+        fromExtension = fromExtension == null || fromExtension.isEmpty() ? fileUtility.GetFileExtension(documentUri) : fromExtension;
 
-        String title = FileUtility.GetFileName(documentUri);
+        String title = fileUtility.GetFileName(documentUri);
         title = title == null || title.isEmpty() ? UUID.randomUUID().toString() : title;
 
         documentRevisionId = documentRevisionId == null || documentRevisionId.isEmpty() ? documentUri : documentRevisionId;
@@ -84,31 +94,31 @@ public class ServiceConverter {
             body.async = true;
 
         String headerToken = "";
-        if (DocumentManager.TokenEnabled()) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("url", body.url);
-            map.put("outputtype", body.outputtype);
-            map.put("filetype", body.filetype);
-            map.put("title", body.title);
-            map.put("key", body.key);
-            if (isAsync)
-                map.put("async", body.async);
-
-            String token = DocumentManager.CreateToken(map);
-            body.token = token;
-
-            Map<String, Object> payloadMap = new HashMap<String, Object>();
-            payloadMap.put("payload", map);
-            headerToken = DocumentManager.CreateToken(payloadMap);
-        }
+//        if (DocumentManager.TokenEnabled()) {
+//            HashMap<String, Object> map = new HashMap<String, Object>();
+//            map.put("url", body.url);
+//            map.put("outputtype", body.outputtype);
+//            map.put("filetype", body.filetype);
+//            map.put("title", body.title);
+//            map.put("key", body.key);
+//            if (isAsync)
+//                map.put("async", body.async);
+//
+//            String token = DocumentManager.CreateToken(map);
+//            body.token = token;
+//
+//            Map<String, Object> payloadMap = new HashMap<String, Object>();
+//            payloadMap.put("payload", map);
+//            headerToken = DocumentManager.CreateToken(payloadMap);
+//        }
 
         Gson gson = new Gson();
         String bodyString = gson.toJson(body);
 
         byte[] bodyByte = bodyString.getBytes(StandardCharsets.UTF_8);
 
-        URL url = new URL(DocumentConverterUrl);
-        java.net.HttpURLConnection connection = (java.net.HttpURLConnection) url.openConnection();
+        URL url = new URL(documentConfig.getConvertDocs());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -116,9 +126,9 @@ public class ServiceConverter {
         connection.setRequestProperty("Accept", "application/json");
         connection.setConnectTimeout(ConvertTimeout);
 
-        if (DocumentManager.TokenEnabled()) {
-            connection.setRequestProperty(DocumentJwtHeader == "" ? "Authorization" : DocumentJwtHeader, "Bearer " + headerToken);
-        }
+//        if (DocumentManager.TokenEnabled()) {
+//            connection.setRequestProperty(DocumentJwtHeader == "" ? "Authorization" : DocumentJwtHeader, "Bearer " + headerToken);
+//        }
 
         connection.connect();
         try (OutputStream os = connection.getOutputStream()) {
@@ -137,7 +147,7 @@ public class ServiceConverter {
         return GetResponseUri(jsonString);
     }
 
-    public static String GenerateRevisionId(String expectedKey) {
+    public String GenerateRevisionId(String expectedKey) {
         if (expectedKey.length() > 20)
             expectedKey = Integer.toString(expectedKey.hashCode());
 
@@ -185,7 +195,7 @@ public class ServiceConverter {
         throw new Exception(errorMessage);
     }
 
-    private static String GetResponseUri(String jsonString) throws Exception {
+    private String GetResponseUri(String jsonString) throws Exception {
         JSONObject jsonObj = ConvertStringToJSON(jsonString);
 
         Object error = jsonObj.get("error");
@@ -208,7 +218,7 @@ public class ServiceConverter {
         return resultPercent >= 100l ? responseUri : "";
     }
 
-    private static String ConvertStreamToString(InputStream stream) throws IOException {
+    private String ConvertStreamToString(InputStream stream) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(stream);
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -224,7 +234,7 @@ public class ServiceConverter {
         return result;
     }
 
-    private static JSONObject ConvertStringToJSON(String jsonString) throws ParseException {
+    private JSONObject ConvertStringToJSON(String jsonString) throws ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(jsonString);
         JSONObject jsonObj = (JSONObject) obj;

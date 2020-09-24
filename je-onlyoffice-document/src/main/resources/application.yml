@@ -27,11 +27,25 @@ fileTempPath: /Users/shengte/git/temp/
 
 je:
   jwt:
-#    enabled:
+    #    enabled:
     secret: abcdefg1234567 # 加密密钥
     expire: 3600 # token有效时长
     header: token # header 名称
     ignorepath: /comm,/error,/favicon.ico,swagger,/csrf
+  document:
+    filesizeMax: 5242880
+    #storage-folder: /app/dapp/document/temp/
+    storageFolder: /Users/shengte/git/temp/
+    viewedDocs: .pdf|.djvu|.xps
+    editedDocs: .docx|.xlsx|.csv|.pptx|.txt
+    convertDocs: .docm|.dotx|.dotm|.dot|.doc|.odt|.fodt|.ott|.xlsm|.xltx|.xltm|.xlt|.xls|.ods|.fods|.ots|.pptm|.ppt|.ppsx|.ppsm|.pps|.potx|.potm|.pot|.odp|.fodp|.otp|.rtf|.mht|.html|.htm|.epub
+    timeout: 120000
+    converterUrl: http://10.19.2.5:8081/ConvertService.ashx
+    tempstorageUrl: http://10.19.2.5:8081/ResourceService.ashx
+    apiUrl: http://10.19.2.5:8081/web-apps/apps/api/documents/api.js
+    preloaderUrl: http://10.19.2.5:8081/web-apps/apps/api/documents/cache-scripts.html
+    secret:
+  # header: Authorization
 
 logging:
   level:
