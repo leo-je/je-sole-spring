@@ -1,0 +1,47 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: document
+  freemarker:
+    allow-request-override: false
+    allow-session-override: false
+    cache: true
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: true
+    prefer-file-system-access: true
+    suffix: .html
+    template-loader-path: classpath:/templates/
+  resources:
+    static-locations: classpath:/static/
+
+#fileTempPath: /app/dapp/document/temp/
+
+fileTempPath: /Users/shengte/git/temp/
+
+je:
+  jwt:
+#    enabled:
+    secret: abcdefg1234567 # 加密密钥
+    expire: 3600 # token有效时长
+    header: token # header 名称
+    ignorepath: /comm,/error,/favicon.ico,swagger,/csrf
+
+logging:
+  level:
+    com.je: debug
+
+swagger2:
+  docket:
+    apiInfo:
+      title: 测试demo
+    basePackage: com.je.cloud
+
+
+

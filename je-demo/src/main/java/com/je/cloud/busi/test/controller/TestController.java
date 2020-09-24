@@ -5,6 +5,7 @@ import com.je.cloud.disruptor.queue.DisruptorHandleQueue;
 import com.je.cloud.disruptor.service.DisruptorService;
 import com.je.cloud.jwt.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,9 @@ public class TestController {
     @Autowired
     private DisruptorService disruptorService;
 
+    @Autowired
+    private RedisTemplate<String,Object> template;
+
 
     @Resource
     private TestService testService;
@@ -35,8 +39,10 @@ public class TestController {
     @GetMapping("/test")
     public Object test(HttpServletRequest request) {
         Object identityId = request.getAttribute("identityId");
+        System.out.println(identityId);
         Object i = testService.selectTest();
-        System.out.println("test i : " + i);
+        String token = (String) template.opsForValue().get("token");
+        System.out.println(token);
         return i;
     }
 
@@ -52,6 +58,7 @@ public class TestController {
         context.put("username", username);
         DisruptorHandleQueue queue = new DisruptorHandleQueue("233", "testService", context);
         disruptorService.addTask(queue);
+        template.opsForValue().set("token",token);
         return token;
     }
 }
