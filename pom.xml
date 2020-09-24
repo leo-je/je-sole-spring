@@ -27,6 +27,7 @@
         <module>je-spring-base-starter</module>
         <module>je-spring-mybatis-starter</module>
         <module>je-spring-jwt-starter</module>
+        <module>je-spring-quartz-starter</module>
         <module>je-spring-queue-disruptor-starter</module>
         <module>je-spring-redis-starter</module>
         <module>je-demo</module>
