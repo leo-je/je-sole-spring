@@ -1,33 +1,57 @@
 package com.je.cloud.quartz.service;
 
-import com.je.cloud.quartz.model.TaskDO;
+import com.je.cloud.quartz.entity.TaskInfo;
 import org.quartz.SchedulerException;
 
-/**
- * jobService
- * @author 小卖铺的老爷爷
- * @date 2018年6月23日
- * @website www.laoyeye.net
- */
+import java.util.List;
+import java.util.Map;
+
+
 public interface TaskService {
 
-    TaskDO get(Long id);
+    TaskInfo get(String id);
 
-    DataGridResult list(TaskQuery query);
+    /**
+     * 获取任务列表
+     *
+     * @param param
+     * @return
+     */
+    List<TaskInfo> list(Map<String, Object> param);
 
-    int save(TaskDO taskScheduleJob);
+    /**
+     * 新增任务信息
+     *
+     * @param taskScheduleJob
+     * @return
+     */
+    int save(TaskInfo taskScheduleJob);
 
-    int update(TaskDO taskScheduleJob);
+    /**
+     * 更新任务
+     *
+     * @param taskScheduleJob
+     * @return
+     */
+    int update(TaskInfo taskScheduleJob);
 
-    int remove(Long id);
+    /**
+     * 根据id删除任务
+     *
+     * @param id
+     * @return
+     */
+    int remove(String id);
 
-    int removeBatch(Long[] ids);
+    int removeBatch(String[] ids);
 
     void initSchedule() throws SchedulerException;
 
-    void changeStatus(Long jobId, String jobStatus) throws SchedulerException;
+    void changeStatus(String jobId, String jobStatus) throws SchedulerException;
 
-    void updateCron(Long jobId) throws SchedulerException;
+    void updateCron(String jobId) throws SchedulerException;
 
-    void run(TaskDO scheduleJob) throws SchedulerException;
+    void run(TaskInfo scheduleJob) throws SchedulerException;
+
+    void run(String id) throws SchedulerException;
 }

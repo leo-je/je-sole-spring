@@ -27,8 +27,21 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) {
         /** 地址过滤 */
         String uri = request.getRequestURI();
-        log.info("TokenInterceptor" + ":" + uri);
-        String[] Ignorepath = jwtConfig.getIgnorepath().split(",");
+        //log.info("TokenInterceptor" + ":" + uri);
+        String[] Ignorepath = jwtConfig.getIgnorePath().split(",");
+
+        String[] IgnoreIp = jwtConfig.getIgnoreIp().split(",");
+
+        String ip = getIP(request);
+
+        if (IgnoreIp.length >= 1) {
+            for (String i : IgnoreIp) {
+                if (i.equals(ip)) {
+                    return true;
+                }
+            }
+        }
+
         if (Ignorepath.length >= 1) {
             for (String path : Ignorepath) {
                 if (uri.contains(path) || "/".equals(path)) {
@@ -61,11 +74,12 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         }
 
         if (StringUtils.isEmpty(token)) {
-            log.info("TokenInterceptor" + ":" + getIP(request));
+            log.info("TokenInterceptor" + ": no token IP  --->  " + ip);
+            log.info("TokenInterceptor" + ": no token uri  --->  " + uri);
             throw new AuthorizationException(jwtConfig.getHeader() + "不能为空");
         }
 
-        Claims claims = null;
+        Claims claims;
         try {
             claims = jwtConfig.getTokenClaim(token);
             if (claims == null || jwtConfig.isTokenExpired(claims.getExpiration())) {

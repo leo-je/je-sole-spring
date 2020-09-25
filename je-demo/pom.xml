@@ -47,6 +47,12 @@
 
         <dependency>
             <groupId>com.je.cloud</groupId>
+            <artifactId>je-spring-quartz-starter</artifactId>
+            <version>${je.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.je.cloud</groupId>
             <artifactId>je-spring-redis-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

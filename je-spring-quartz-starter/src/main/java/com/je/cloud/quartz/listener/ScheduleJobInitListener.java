@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(value = 1)
-
 public class ScheduleJobInitListener implements CommandLineRunner {
 
 
@@ -17,8 +16,6 @@ public class ScheduleJobInitListener implements CommandLineRunner {
     TaskService scheduleJobService;
 
     @Override
-
-
     public void run(String... arg0) {
         try {
             scheduleJobService.initSchedule();

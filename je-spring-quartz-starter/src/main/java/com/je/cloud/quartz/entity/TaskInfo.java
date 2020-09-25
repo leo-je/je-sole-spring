@@ -1,21 +1,16 @@
-package com.je.cloud.quartz.model;
+package com.je.cloud.quartz.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- *
- * @author 小卖铺的老爷爷
- * @date 2018年6月25日
- * @website www.laoyeye.net
- */
-public class TaskDO implements Serializable {
+
+public class TaskInfo implements Serializable {
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
     // 任务名
     private String jobName;
     // 任务描述
@@ -37,11 +32,11 @@ public class TaskDO implements Serializable {
 
     private Date updateTime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

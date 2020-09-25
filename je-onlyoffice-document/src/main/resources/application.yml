@@ -21,17 +21,15 @@ spring:
   resources:
     static-locations: classpath:/static/
 
-#fileTempPath: /app/dapp/document/temp/
-
-fileTempPath: /Users/shengte/git/temp/
-
 je:
   jwt:
     #    enabled:
     secret: abcdefg1234567 # 加密密钥
     expire: 3600 # token有效时长
     header: token # header 名称
-    ignorepath: /comm,/error,/favicon.ico,swagger,/csrf
+    ignore-path: /comm,/error,/favicon.ico,swagger,/csrf,/getfile/
+    ignore-ip: 127.0.0.1,172.17.0.2
+
   document:
     filesizeMax: 5242880
     #storage-folder: /app/dapp/document/temp/

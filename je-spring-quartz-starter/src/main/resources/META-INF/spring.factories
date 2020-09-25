@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.je.cloud.quartz.config.StarterAutoConfigure
+  com.je.cloud.quartz.config.StarterAutoConfigure,\
+  com.je.cloud.quartz.factory.JobFactory,\
+  com.je.cloud.quartz.config.QuartzConfig

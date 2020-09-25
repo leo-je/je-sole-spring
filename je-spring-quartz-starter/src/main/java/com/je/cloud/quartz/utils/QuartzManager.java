@@ -1,6 +1,6 @@
 package com.je.cloud.quartz.utils;
 
-import com.je.cloud.quartz.model.TaskDO;
+import com.je.cloud.quartz.entity.TaskInfo;
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.slf4j.Logger;
@@ -21,6 +21,11 @@ import java.util.Set;
 @Service
 public class QuartzManager {
     private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    public QuartzManager(){
+        log.info("-------------> QuartzManager init");
+    }
+
     @Autowired
     private Scheduler scheduler;
 
@@ -31,11 +36,10 @@ public class QuartzManager {
      * @throws SchedulerException
      */
     @SuppressWarnings("unchecked")
-    public void addJob(TaskDO task) {
+    public void addJob(TaskInfo task) {
         try {
             // 创建jobDetail实例，绑定Job实现类
             // 指明job的名称，所在组的名称，以及绑定job类
-
             Class<? extends Job> jobClass = (Class<? extends Job>) (Class.forName(task.getBeanClass()).newInstance()
                     .getClass());
             JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(task.getJobName(), task.getJobGroup())// 任务名称和组构成任务key
@@ -62,14 +66,14 @@ public class QuartzManager {
      * @return
      * @throws SchedulerException
      */
-    public List<TaskDO> getAllJob() throws SchedulerException {
+    public List<TaskInfo> getAllJob() throws SchedulerException {
         GroupMatcher<JobKey> matcher = GroupMatcher.anyJobGroup();
         Set<JobKey> jobKeys = scheduler.getJobKeys(matcher);
-        List<TaskDO> jobList = new ArrayList<TaskDO>();
+        List<TaskInfo> jobList = new ArrayList<TaskInfo>();
         for (JobKey jobKey : jobKeys) {
             List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobKey);
             for (Trigger trigger : triggers) {
-                TaskDO job = new TaskDO();
+                TaskInfo job = new TaskInfo();
                 job.setJobName(jobKey.getName());
                 job.setJobGroup(jobKey.getGroup());
                 job.setDescription("触发器:" + trigger.getKey());
@@ -92,11 +96,11 @@ public class QuartzManager {
      * @return
      * @throws SchedulerException
      */
-    public List<TaskDO> getRunningJob() throws SchedulerException {
+    public List<TaskInfo> getRunningJob() throws SchedulerException {
         List<JobExecutionContext> executingJobs = scheduler.getCurrentlyExecutingJobs();
-        List<TaskDO> jobList = new ArrayList<TaskDO>(executingJobs.size());
+        List<TaskInfo> jobList = new ArrayList<TaskInfo>(executingJobs.size());
         for (JobExecutionContext executingJob : executingJobs) {
-            TaskDO job = new TaskDO();
+            TaskInfo job = new TaskInfo();
             JobDetail jobDetail = executingJob.getJobDetail();
             JobKey jobKey = jobDetail.getKey();
             Trigger trigger = executingJob.getTrigger();
@@ -121,7 +125,7 @@ public class QuartzManager {
      * @param task
      * @throws SchedulerException
      */
-    public void pauseJob(TaskDO task) throws SchedulerException {
+    public void pauseJob(TaskInfo task) throws SchedulerException {
         JobKey jobKey = JobKey.jobKey(task.getJobName(), task.getJobGroup());
         scheduler.pauseJob(jobKey);
     }
@@ -132,7 +136,7 @@ public class QuartzManager {
      * @param task
      * @throws SchedulerException
      */
-    public void resumeJob(TaskDO task) throws SchedulerException {
+    public void resumeJob(TaskInfo task) throws SchedulerException {
         JobKey jobKey = JobKey.jobKey(task.getJobName(), task.getJobGroup());
         scheduler.resumeJob(jobKey);
     }
@@ -143,7 +147,7 @@ public class QuartzManager {
      * @param task
      * @throws SchedulerException
      */
-    public void deleteJob(TaskDO task) throws SchedulerException {
+    public void deleteJob(TaskInfo task) throws SchedulerException {
         JobKey jobKey = JobKey.jobKey(task.getJobName(), task.getJobGroup());
         scheduler.deleteJob(jobKey);
 
@@ -155,7 +159,7 @@ public class QuartzManager {
      * @param task
      * @throws SchedulerException
      */
-    public void runJobNow(TaskDO task) throws SchedulerException {
+    public void runJobNow(TaskInfo task) throws SchedulerException {
         JobKey jobKey = JobKey.jobKey(task.getJobName(), task.getJobGroup());
         scheduler.triggerJob(jobKey);
     }
@@ -166,7 +170,7 @@ public class QuartzManager {
      * @param task
      * @throws SchedulerException
      */
-    public void updateJobCron(TaskDO task) throws SchedulerException {
+    public void updateJobCron(TaskInfo task) throws SchedulerException {
 
         TriggerKey triggerKey = TriggerKey.triggerKey(task.getJobName(), task.getJobGroup());
 

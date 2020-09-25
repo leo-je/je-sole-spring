@@ -34,7 +34,9 @@ public class JwtConfig {
     /**
      * 白名单路径
      */
-    private String ignorepath = "/index";
+    private String ignorePath = "/index";
+
+    private String ignoreIp = "127.0.0.1";
     /**
      * 是否启用jwt
      */
@@ -119,12 +121,21 @@ public class JwtConfig {
         this.enabled = enabled;
     }
 
-    public String getIgnorepath() {
-        return ignorepath;
+
+    public String getIgnoreIp() {
+        return ignoreIp;
     }
 
-    public void setIgnorepath(String ignorepath) {
-        this.ignorepath = ignorepath;
+    public void setIgnoreIp(String ignoreIp) {
+        this.ignoreIp = ignoreIp;
+    }
+
+    public String getIgnorePath() {
+        return ignorePath;
+    }
+
+    public void setIgnorePath(String ignorePath) {
+        this.ignorePath = ignorePath;
     }
 
     public String getSecret() {
