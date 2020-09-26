@@ -32,6 +32,7 @@
         <module>je-spring-redis-starter</module>
         <module>je-demo</module>
         <module>je-onlyoffice-document</module>
+        <module>je-task-process</module>
     </modules>
 
     <dependencies>

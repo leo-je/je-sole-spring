@@ -1,15 +1,9 @@
 package com.je.cloud.quartz.config;
 
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
-/**
- * JWT的token，区分大小写
- */
 @ConfigurationProperties(prefix = "je.quartz")
-@Component
-public class QuartzConfig {
+public class QuartzInfoConfig {
 
     private String propertiesFilePath = null;
 

@@ -27,11 +27,11 @@
             <version>${je.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.je.cloud</groupId>
-            <artifactId>je-spring-jwt-starter</artifactId>
-            <version>${je.version}</version>
-        </dependency>
+<!--                <dependency>-->
+<!--                    <groupId>com.je.cloud</groupId>-->
+<!--                    <artifactId>je-spring-jwt-starter</artifactId>-->
+<!--                    <version>${je.version}</version>-->
+<!--                </dependency>-->
 
         <dependency>
             <groupId>com.je.cloud</groupId>
@@ -62,9 +62,30 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
+        <!--解决无法扫描到mapper的问题-->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*Mapper.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -3,26 +3,23 @@ package com.je.cloud.quartz.config;
 
 import com.je.cloud.quartz.factory.JobFactory;
 import com.je.cloud.quartz.listener.ScheduleJobInitListener;
-import com.je.cloud.quartz.service.TaskService;
-import com.je.cloud.quartz.utils.QuartzManager;
 import org.quartz.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Properties;
 
 
-@ConditionalOnBean(TaskService.class)
-@EnableConfigurationProperties(QuartzConfig.class)
+@EnableConfigurationProperties(QuartzInfoConfig.class)
+@Component
 public class StarterAutoConfigure {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
@@ -31,13 +28,8 @@ public class StarterAutoConfigure {
     private JobFactory jobFactory;
 
     @Resource
-    private QuartzConfig quartzConfig;
+    QuartzInfoConfig quartzConfig;
 
-
-    @Bean
-    public QuartzManager quartzManager() {
-        return new QuartzManager();
-    }
 
     @Bean
     public ScheduleJobInitListener scheduleJobInitListener() {
@@ -46,13 +38,14 @@ public class StarterAutoConfigure {
 
 
     @Bean
-    public SchedulerFactoryBean schedulerFactoryBean(Properties quartzProperties) {
+    public SchedulerFactoryBean schedulerFactoryBean() {
         log.info("-------------> SchedulerFactoryBean init");
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         try {
             schedulerFactoryBean.setOverwriteExistingJobs(true);
-            if (quartzProperties != null) {
-                schedulerFactoryBean.setQuartzProperties(quartzProperties);
+            Properties properties = properties();
+            if (properties != null) {
+                schedulerFactoryBean.setQuartzProperties(properties);
             }
             schedulerFactoryBean.setJobFactory(jobFactory);
         } catch (Exception e) {
@@ -63,8 +56,7 @@ public class StarterAutoConfigure {
 
 
     // 指定quartz.properties，可在配置文件中配置相关属性
-    @Bean
-    public Properties quartzProperties() throws IOException {
+    public Properties properties() throws IOException {
         if (quartzConfig.getPropertiesFilePath() != null) {
             log.info("-------------> quartzProperties init");
             PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
