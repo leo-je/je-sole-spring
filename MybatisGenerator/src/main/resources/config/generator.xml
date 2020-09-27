@@ -12,7 +12,7 @@
 		<!-- 这个插件给由MBG生成的Java模型对象增加了equals和hashCode方法 <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" 
 			/> -->
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
-		<commentGenerator type="cn.je.MybatisGenerator.generator.MyCommentGenerator">
+		<commentGenerator type="com.je.cloud.MybatisGenerator.generator.MyCommentGenerator">
 			<property name="javaFileEncoding" value="UTF-8" />
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
