@@ -30,6 +30,7 @@
         <module>je-spring-quartz-starter</module>
         <module>je-spring-queue-disruptor-starter</module>
         <module>je-spring-redis-starter</module>
+        <module>MybatisGenerator</module>
         <module>je-demo</module>
         <module>je-onlyoffice-document</module>
         <module>je-task-process</module>

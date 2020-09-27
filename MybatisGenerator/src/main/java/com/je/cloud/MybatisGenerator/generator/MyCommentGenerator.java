@@ -1,13 +1,11 @@
-package cn.je.MybatisGenerator.generator;
+package com.je.cloud.MybatisGenerator.generator;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.InnerClass;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.Parameter;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.MergeConstants;
@@ -74,6 +72,20 @@ public class MyCommentGenerator extends DefaultCommentGenerator {
         innerClass.addJavaDocLine(" * 数据库表：" + introspectedTable.getFullyQualifiedTable());
         // addJavadocTag(innerClass, false);
         innerClass.addJavaDocLine(" */");
+    }
+
+    @Override
+    public void addModelClassComment(TopLevelClass topLevelClass,
+                                     IntrospectedTable introspectedTable) {
+        String shortName = topLevelClass.getType().getShortName();
+        topLevelClass.addJavaDocLine("import io.swagger.annotations.ApiModelProperty;");
+        topLevelClass.addJavaDocLine(""); //$NON-NLS-1$
+        topLevelClass.addJavaDocLine(""); //$NON-NLS-1$
+        topLevelClass.addJavaDocLine("/**"); //$NON-NLS-1$
+        topLevelClass.addJavaDocLine(" * @date: " + LocalDate.now());
+        topLevelClass.addJavaDocLine(" * " + shortName);
+        topLevelClass.addJavaDocLine(" * 数据库表：" + introspectedTable.getFullyQualifiedTable());
+        topLevelClass.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 
     @Override

@@ -1,4 +1,4 @@
-package cn.je.MybatisGenerator.generator;
+package com.je.cloud.MybatisGenerator.generator;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
