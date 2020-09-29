@@ -97,6 +97,7 @@ public class CommomTaskHandleServiceImpl implements CommomTaskHandleService {
                 reTryTask(e, ps, currentTaskOrder);
             }
         }
+        e.setProcessList(new Gson().toJson(ps));
         tTaskService.update(e);
     }
 
