@@ -34,6 +34,7 @@
         <module>je-demo</module>
         <module>je-onlyoffice-document</module>
         <module>je-task-process</module>
+        <module>je-busi-project-manager</module>
     </modules>
 
     <dependencies>

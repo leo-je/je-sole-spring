@@ -23,13 +23,21 @@ spring:
 
 je:
   jwt:
-    #    enabled:
+    enabled: false
     secret: abcdefg1234567 # 加密密钥
     expire: 3600 # token有效时长
     header: token # header 名称
     ignore-path: /comm,/error,/favicon.ico,swagger,/csrf,/getfile/
-    ignore-ip: 127.0.0.1,172.17.0.2
+    ignore-ip: 127.0.0.1,172.17.0.2,10.8.10.205
 
+
+
+#  文档转换回调地址
+#  {
+#    "endConvert": true,
+#    "fileUrl": "https://documentserver/ResourceService.ashx?filename=output.doc",
+#    "percent": 100
+#  }
   document:
     filesizeMax: 5242880
     #storage-folder: /app/dapp/document/temp/
@@ -38,10 +46,10 @@ je:
     editedDocs: .docx|.xlsx|.csv|.pptx|.txt
     convertDocs: .docm|.dotx|.dotm|.dot|.doc|.odt|.fodt|.ott|.xlsm|.xltx|.xltm|.xlt|.xls|.ods|.fods|.ots|.pptm|.ppt|.ppsx|.ppsm|.pps|.potx|.potm|.pot|.odp|.fodp|.otp|.rtf|.mht|.html|.htm|.epub
     timeout: 120000
-    converterUrl: http://10.19.2.5:8081/ConvertService.ashx
-    tempstorageUrl: http://10.19.2.5:8081/ResourceService.ashx
-    apiUrl: http://10.19.2.5:8081/web-apps/apps/api/documents/api.js
-    preloaderUrl: http://10.19.2.5:8081/web-apps/apps/api/documents/cache-scripts.html
+    converterUrl: http://10.8.10.205:8081/ConvertService.ashx
+    tempstorageUrl: http://10.8.10.205:8081/ResourceService.ashx
+    apiUrl: http://10.8.10.205:8081/web-apps/apps/api/documents/api.js
+    preloaderUrl: http://10.8.10.205:8081/web-apps/apps/api/documents/cache-scripts.html
     secret:
   # header: Authorization
 

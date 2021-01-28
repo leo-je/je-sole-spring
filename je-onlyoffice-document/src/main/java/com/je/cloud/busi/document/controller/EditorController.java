@@ -47,7 +47,7 @@ import java.net.URLEncoder;
 
 
 @Controller()
-public class EditorServlet extends HttpServlet {
+public class EditorController extends HttpServlet {
 
     @Autowired
     DocumentUtils documentUtils;
@@ -57,9 +57,6 @@ public class EditorServlet extends HttpServlet {
 
     @Autowired
     private FileUtility fileUtility;
-
-    @Autowired
-    private ServiceConverter serviceConverter;
 
     @RequestMapping("/EditorServlet")
     public ModelAndView editorServlet(HttpServletRequest request, HttpServletResponse response, ModelAndView view) throws IOException {

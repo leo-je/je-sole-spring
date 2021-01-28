@@ -47,7 +47,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 @Controller
-public class IndexServlet {
+public class IndexController {
 
 
     @Autowired
@@ -75,15 +75,19 @@ public class IndexServlet {
 
         switch (action.toLowerCase()) {
             case "upload":
+                System.out.println("upload");
                 Upload(request, response, writer);
                 break;
             case "convert":
+                System.out.println("convert");
                 Convert(request, response, writer);
                 break;
             case "track":
+                System.out.println("track");
                 Track(request, writer);
                 break;
             case "remove":
+                System.out.println("remove");
                 Remove(request, writer);
                 break;
         }
@@ -203,6 +207,12 @@ public class IndexServlet {
         }
     }
 
+    /**
+     * 文档更改跟踪
+     * 保存文档在线编辑的变化
+     * @param request
+     * @param writer
+     */
     private void Track(HttpServletRequest request, PrintWriter writer) {
         String userAddress = request.getParameter("userAddress");
         String fileName = request.getParameter("fileName");
