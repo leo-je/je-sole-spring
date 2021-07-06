@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.je.cloud</groupId>
+        <artifactId>je-business</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.je.cloud</groupId>
+    <artifactId>je-onlyoffice-document</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>je-onlyoffice-document</name>
+    <description>je-onlyoffice-document</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.je.cloud</groupId>
+            <artifactId>je-spring-base-starter</artifactId>
+            <version>${je.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.je.cloud</groupId>
+            <artifactId>je-spring-jwt-starter</artifactId>
+            <version>${je.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        <!--json-->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.inversoft</groupId>-->
+<!--            <artifactId>prime-jwt</artifactId>-->
+<!--            <version>1.3.1</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session</artifactId>-->
+<!--            <version>1.2.2.RELEASE</version>-->
+<!--        </dependency>-->
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

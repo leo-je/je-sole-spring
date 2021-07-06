@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <parent>
+        <groupId>com.je.cloud</groupId>
+        <artifactId>je-sole-spring</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.je.cloud</groupId>
+    <artifactId>je-base-component</artifactId>
+    <name>je-base-component</name>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <modules>
+        <module>je-spring-mybatis-starter</module>
+        <module>je-spring-quartz-starter</module>
+        <module>je-spring-queue-disruptor-starter</module>
+        <module>je-spring-redis-starter</module>
+        <module>je-spring-base-starter</module>
+        <module>je-spring-jwt-starter</module>
+    </modules>
+
+
+</project>

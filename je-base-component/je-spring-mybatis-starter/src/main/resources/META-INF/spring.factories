@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.je.cloud.mybatis.config.MyBatisAutoConfigurer,\
+com.je.cloud.mybatis.config.MapperScannerAutoConfigurer\
+
